@@ -1,0 +1,18 @@
+<h1>かまいたちアンケート一覧</h1>
+
+<% @topics.each do |topic| %>
+  <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+    <h2><%= topic.title %></h2>
+    <p><%= topic.description %></p>
+
+    <ul>
+      <% topic.choices.each do |choice| %>
+        <li>
+         <%= choice.content %> 
+         <%= button_to "投票する", "#", method: :post %>
+         （現在の票数：<%= choice.votes.count %>）
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
