@@ -25,6 +25,14 @@
     <%= f.text_area :description %>
   </div>
 
+  <h3>選択肢（3つまで）</h3>
+  <%= f.fields_for :choices do |choice_form| %>
+    <div>
+      <%= choice_form.label :content, "選択肢" %>
+      <%= choice_form.text_field :content %>
+    </div>
+  <% end %>
+
   <div>
     <%= f.submit "作成する" %>
   </div>
