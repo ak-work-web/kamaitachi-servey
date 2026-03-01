@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      topic: "お題"
+    attributes:
+      topic:
+        title: "タイトル"
+        description: "説明"
+    # errors:
+    #   messages:
+    #     blank: "を入力してください"
