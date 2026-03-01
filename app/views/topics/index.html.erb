@@ -9,7 +9,7 @@
       <% topic.choices.each do |choice| %>
         <li>
          <%= choice.content %> 
-         <%= button_to "投票する", "#", method: :post %>
+         <%= button_to "投票する", topic_choice_votes_path(topic, choice), method: :post %>
          （現在の票数：<%= choice.votes.count %>）
         </li>
       <% end %>
