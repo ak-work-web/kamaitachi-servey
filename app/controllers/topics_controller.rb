@@ -19,6 +19,13 @@ class TopicsController < ApplicationController
     end
   end
 
+  def destroy
+    @topic = Topic.find(params[:id])
+    @topic.destroy
+
+    redirect_to topics_path, status: :see_other, notice: "お題を削除しました"
+  end
+
   private
 
   def topic_params
