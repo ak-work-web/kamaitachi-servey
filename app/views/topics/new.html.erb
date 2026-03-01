@@ -1,0 +1,19 @@
+<h1>新しいお題を作成</h1>
+
+<%= form_with model: @topic, local: true do |f| %>
+  <div>
+    <%= f.label :title, "お題のタイトル" %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :description, "説明（任意）" %><br>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.submit "作成する" %>
+  </div>
+<% end %>
+
+<%= link_to "一覧に戻る", topics_path %>

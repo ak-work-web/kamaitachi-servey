@@ -1,5 +1,7 @@
 <h1>かまいたちアンケート一覧</h1>
 
+<%= link_to "新しいお題を作る", new_topic_path %>
+
 <% @topics.each do |topic| %>
   <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
     <h2><%= topic.title %></h2>
