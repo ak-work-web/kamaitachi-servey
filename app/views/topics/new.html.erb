@@ -1,6 +1,20 @@
 <h1>新しいお題を作成</h1>
 
 <%= form_with model: @topic, local: true do |f| %>
+
+<%# エラーメッセージ表示 start %>
+<% if @topic.errors.any? %>
+    <div id="error_explanation" style="color: red;">
+      <h2><%= @topic.errors.count %>件のエラーが発生しました:</h2>
+      <ul>
+        <% @topic.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%# エラーメッセージ表示 end %>
+
   <div>
     <%= f.label :title, "お題のタイトル" %><br>
     <%= f.text_field :title %>
