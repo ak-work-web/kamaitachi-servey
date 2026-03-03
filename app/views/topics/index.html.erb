@@ -16,13 +16,19 @@
         </li>
       <% end %>
     </ul>
-
+    
     <div style="margin-top: 10px; text-align: right;">
+
+      <%= link_to "お題を編集", edit_topic_path(topic), 
+                  style: "color: blue;" %>
+
+     <div style="margin-top: 10px; text-align: right;">
       <%= link_to "お題を削除", topic_path(topic), 
                   style: "color: red;",
                   data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
     </div>
 
+  </div>
   </div>
 <% end %>
 

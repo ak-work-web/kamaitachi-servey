@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   # topicesにアクセスしたらindexを表示する
-  resources :topics, only: [:index, :new, :create, :destroy] do
+  resources :topics, only: [:index, :new, :create, :destroy, :edit, :update] do
     resources :choices, only: [] do
       resources :votes, only: [:create]
     end
