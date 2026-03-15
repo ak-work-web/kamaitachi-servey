@@ -1,4 +1,6 @@
 class Topic < ApplicationRecord
+
+  belongs_to :user
   has_many :choices, dependent: :destroy
 
   # 「親（Topic）と一緒に子（Choice）も保存する」
