@@ -1,5 +1,6 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def index
     # @topics = Topic.all
@@ -45,6 +46,13 @@ class TopicsController < ApplicationController
   end
 
   private
+
+  def ensure_correct_user
+   @topic = Topic.find(params[:id])
+   if @topic.user != current_user
+    redirect_to topics_path, alert: "権限がありません。"
+   end
+  end
 
   def topic_params
     # params.require(:topic).permit(:title, :description)
