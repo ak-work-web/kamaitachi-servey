@@ -23,6 +23,8 @@
     
     <div style="margin-top: 10px; text-align: right;">
 
+<%# サインインしているかつ現在のユーザー = お題作成ユーザーの時 view設定。controller設定もある。%>
+     <% if user_signed_in? && current_user == topic.user %> 
       <%= link_to "お題を編集", edit_topic_path(topic), 
                   style: "color: blue;" %>
 
@@ -31,7 +33,7 @@
                   style: "color: red;",
                   data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
     </div>
-
+<% end%>
   </div>
   </div>
 <% end %>
