@@ -3,5 +3,5 @@ class Choice < ApplicationRecord
   belongs_to :topic
 
   #ChoiceテーブルがVoteテーブルの親
-  has_many :votes
+  has_many :votes, dependent: :destroy
 end
