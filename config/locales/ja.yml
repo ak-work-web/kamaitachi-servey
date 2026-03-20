@@ -1,4 +1,7 @@
 ja:
+  errors:
+    format: "%{message}" # デフォルトは "%{attribute}%{message}" なので、%{attribute}を消す
+
   activerecord:
     models:
       topic: "お題"
@@ -9,3 +12,6 @@ ja:
     # errors:
     #   messages:
     #     blank: "を入力してください"
+      # vote:
+      #   user_id: "あなた"
+    
