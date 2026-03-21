@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: kamaitachi-survey-app # あなたのアプリ名
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec rails server"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kamaitachi-db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+
+databases:
+  - name: kamaitachi-db
+    databaseName: kamaitachi_survey
+    user: kamaitachi_user
