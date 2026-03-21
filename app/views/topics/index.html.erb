@@ -1,40 +1,49 @@
 <h1>かまいたちアンケート一覧</h1>
-
 <%= link_to "新しいお題を作る", new_topic_path %>
-
 <% @topics.each do |topic| %>
-  <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+  <%# <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;"> %>
+  <div class="topic-card">
     <h2><%= topic.title %></h2>
     <p><%= topic.description %></p>
     <p>テスト：<%= topic.user.email %></p>
     <p>テスト：<%= topic.user.id %></p>
     <p>投稿作成日：<%= topic.created_at.strftime("%Y/%m/%d") %></p>
     <p>投稿更新日：<%= topic.updated_at.strftime("%Y/%m/%d") %></p>
-
     <ul>
       <% topic.choices.each do |choice| %>
-        <li>
-         <%= choice.content %> 
-         <%= button_to "投票する", topic_choice_votes_path(topic, choice), method: :post %>
-         （現在の票数：<%= choice.votes.count %>）
+        <li style="list-style: none; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #eee;">
+          <%# 投票前・投票後に関わらず、選択肢のテキストは表示 %>
+          <div style="margin-bottom: 10px;">
+            <strong><%= choice.content %></strong>
+          </div>
+          <%# ★出し分けのロジック★ %>
+          <% if topic.voted_by?(current_user) %>
+            <%# 【投票後】結果（バーや％）を表示 %>
+            <div style="font-size: 0.9em; color: #666; margin-bottom: 5px;">
+              <%= choice.votes.count %> 票 (<%= choice.vote_percentage %>%)
+            </div>
+            <div class="result-bar-container" style="background-color: #eee; border-radius: 5px; height: 12px; width: 100%; overflow: hidden;">
+              <div class="result-bar-fill" style="background-color: #007bff; height: 100%; width: <%= choice.vote_percentage %>%; transition: width 0.5s ease-out;">
+              </div>
+            </div>
+          <% else %>
+            <%# 【未投票】ボタンを表示（結果は隠す） %>
+            <%= button_to "投票する", topic_choice_votes_path(topic, choice), 
+                      method: :post, 
+                      class: "vote-button",
+                      style: "background-color: #28a745; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;" %>
+          <% end %>
         </li>
       <% end %>
     </ul>
-    
-    <div style="margin-top: 10px; text-align: right;">
-
-<%# サインインしているかつ現在のユーザー = お題作成ユーザーの時 view設定。controller設定もある。%>
-     <% if user_signed_in? && current_user == topic.user %> 
-      <%= link_to "お題を編集", edit_topic_path(topic), 
-                  style: "color: blue;" %>
-
-     <div style="margin-top: 10px; text-align: right;">
-      <%= link_to "お題を削除", topic_path(topic), 
-                  style: "color: red;",
-                  data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
-    </div>
-<% end%>
-  </div>
+    <%# サインインしているかつ現在のユーザー = お題作成ユーザーの時 view設定。controller設定もある。%>
+    <% if user_signed_in? && current_user == topic.user %>
+      <div class="topic-actions">
+        <%= link_to "お題を編集", edit_topic_path(topic), class: "edit-link" %>
+        <%= link_to "お題を削除", topic_path(topic), 
+                class: "delete-link",
+                data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+      </div>
+    <% end%>
   </div>
 <% end %>
-

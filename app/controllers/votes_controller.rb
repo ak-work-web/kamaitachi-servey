@@ -3,17 +3,14 @@ class VotesController < ApplicationController
     #Choiceテーブルのどの選択肢への投票か見つける
     choice = Choice.find(params[:choice_id])
 
-    # １. 「お題」に対して「自分」が既に投票しているか探し、なければ新しく準備する
-    # ここで「誰が(current_user)」「どのお題に(choice.topic)」をセットする
-    vote = Vote.find_or_initialize_by(
-    user: current_user,
-    topic: choice.topic
+    # 1. ログインユーザーに紐付いた新しい投票オブジェクトを作成
+    # current_user.votes.new を使うことで、user_id は自動でセットされます
+    vote = current_user.votes.new(
+      choice: choice,      # どの選択肢か
+      topic: choice.topic  # どのお題か
     )
 
-    # 2. 選択肢を「今回選んだもの」に上書き（新規の場合もここでセットされる）
-    vote.choice = choice
-
-    #３.保存処理。画面をアンケート一覧(root)へ戻す
+    #2.保存処理。画面をアンケート一覧(root)へ戻す
     if vote.save
       # 成功したら一覧へ
       redirect_to root_path, notice: "投票しました！"

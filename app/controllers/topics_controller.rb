@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def index
@@ -49,7 +49,7 @@ class TopicsController < ApplicationController
 
   def ensure_correct_user
    @topic = Topic.find(params[:id])
-   if @topic.user != current_user
+   if @topic.user_id != current_user.id
     redirect_to topics_path, alert: "権限がありません。"
    end
   end
