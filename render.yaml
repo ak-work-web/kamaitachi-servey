@@ -2,6 +2,7 @@ services:
   - type: web
     name: kamaitachi-survey-app # あなたのアプリ名
     runtime: ruby
+    plan: free  #追記
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec rails server"
     envVars:
@@ -14,5 +15,6 @@ services:
 
 databases:
   - name: kamaitachi-db
+    plan: free  #追記
     databaseName: kamaitachi_survey
     user: kamaitachi_user
